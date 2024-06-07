@@ -3,6 +3,10 @@ import ProductList from "./components/ProductList"
 import UseEffectExample from "./components/UseEffectExample"
 import UseEffectExample2 from "./components/UseEffectExample2"
 import FetchingAxios from "./components/FetchingAxios"
+import FetchingWFetch from "./components/FetchingWFetch"
+import AsyncAwait from "./components/AsyncAwait"
+import LoadingIndicator from "./components/LoadingIndicator"
+import DeleteData from "./components/DeleteData"
 
 
 const App = () => {
@@ -12,7 +16,11 @@ const App = () => {
   return (
     <>
         <h1 className="text-center">React Fetching Data Examples, Using Axios, services, Http,CRUD</h1>
-        <FetchingAxios/>
+        <DeleteData/>
+        {/* <LoadingIndicator/> */}
+        {/* <AsyncAwait/> */}
+        {/* <FetchingWFetch/> */}
+        {/* <FetchingAxios/> */}
         {/* <UseEffectExample/> */}
         {/* <UseEffectExample2/> */}
         {/* <ProductList category={category}/>
