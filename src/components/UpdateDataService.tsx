@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import userService, { User } from "../services/userService";
 
 
-interface User {
-  id: number;
-  name: string;
-}
 
-const UpdateData = () => {
+
+const UpdateDataService = () => {
   //we need a useState to help us hold the state of our users
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
@@ -17,8 +14,8 @@ const UpdateData = () => {
   ///Create a function to helps us fetch our data with axios
   const FetchData = () => {
     setIsLoading(true);
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    const {request} = userService.getAll<User>()
+    request
       .then((response) => {
         setUsers(response.data);
         setIsLoading(false);
@@ -41,7 +38,7 @@ const UpdateData = () => {
     const originalUsers = [...users]
     const updatedUser = {...user, name: user.name + "!"}
     setUsers(users.map(u => u.id === user.id ? updatedUser : u))
-    axios.put('https://jsonplaceholder.typicode.com/users/' + user.id,updatedUser)
+    userService.update(updatedUser)
     .catch(error => {
       setError(error.message)
       setUsers(originalUsers)
@@ -70,4 +67,4 @@ const UpdateData = () => {
   );
 };
 
-export default UpdateData;
+export default UpdateDataService;
