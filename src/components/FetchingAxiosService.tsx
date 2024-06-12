@@ -1,24 +1,18 @@
 
 import { useEffect, useState } from "react";
-// import apiClient,{CanceledError} from "../services/apiClient";
-import axios from "axios";
+import apiClient,{CanceledError} from "../services/apiClient";
+import userService, { User } from "../services/userService";
 
-interface User {
-  id: number;
-  name: string;
-  username: string;
-}
 
-const FetchingAxios = () => {
+const FetchingAxiosService = () => {
   //we need a useState to help us hold the state of our users
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState('')
 
   ///Create a function to helps us fetch our data with axios
   const FetchData = () => {
-    // apiClient
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    const {request} = userService.getAll<User>();
+    request
       .then((response) => setUsers(response.data))
       .catch(error => setError(error.message)
       )
@@ -35,7 +29,7 @@ const FetchingAxios = () => {
       <h1 className="text-center">Fetching Data with apiClient</h1>
       <ul>
         {users.map((user) => (
-          <li key={user.id}>{user.username}</li>
+          <li key={user.id}>{user.name}</li>
         ))}
         { error && <p className="text-danger">{error}</p>}
       </ul>
@@ -43,4 +37,4 @@ const FetchingAxios = () => {
   );
 };
 
-export default FetchingAxios;
+export default FetchingAxiosService;

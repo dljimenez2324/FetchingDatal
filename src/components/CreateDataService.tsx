@@ -1,15 +1,14 @@
 
-import axios from "axios";
 import { useEffect, useState } from "react";
-// import apiClient, {CanceledError} from "../services/apiClient";
+import userService, { User } from "../services/userService";
 
+// interface User {
+//   id: number;
+//   name: string;
 
-interface User {
-  id: number;
-  name: string;
-}
+// }
 
-const UpdateData = () => {
+const CreateDataService = () => {
   //we need a useState to help us hold the state of our users
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
@@ -19,9 +18,8 @@ const UpdateData = () => {
   ///Create a function to helps us fetch our data with axios
   const FetchData = () => {
     setIsLoading(true);
-    // apiClient
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    const {request} = userService.getAll<User>()
+    request
       .then((response) => {
         setUsers(response.data);
         setIsLoading(false);
@@ -38,23 +36,30 @@ const UpdateData = () => {
     FetchData();
   }, []);
 
-  ///Lets create a helper function to help us Update our user
-  const updateUser = (user:User) => {
-
+  ///Lets create a helper function to help us Create our user
+  const addUser = () => {
+    //original users []
     const originalUsers = [...users]
-    const updatedUser = {...user, name: user.name + "!"}
-    setUsers(users.map(u => u.id === user.id ? updatedUser : u))
-    axios.put('https://jsonplaceholder.typicode.com/users/' + user.id,updatedUser)
+    //wer are going to have a new object with id and name
+    const newUser = {id: 0, name: 'Aaron'};
+    //set our users and spread all users and add our new user
+    setUsers([newUser,...users])
+    //we need to send this updated data to our back-end
+    userService.create(newUser)
+    .then(response => setUsers([response.data,...users]))
     .catch(error => {
-      setError(error.message)
-      setUsers(originalUsers)
+      setError(error.message);
+      setUsers(originalUsers);
+
     })
+    
   }
+  
 
   return (
     <>
-      <h1 className="text-center">CRUD Update with apiClient</h1>
-      
+      <h1 className="text-center">CRUD Create with apiClient</h1>
+      <button className="btn btn-outline-primary mx-3 mb-3" onClick={addUser}>Add</button>
       <ul className="list-group">
         {users.map((user) => (
           <li
@@ -62,7 +67,12 @@ const UpdateData = () => {
             key={user.id}
           >
             {user.name}
-            <button className="btn btn-outline-secondary" onClick={() => updateUser(user)}>Update</button>{" "}
+            <button
+              
+              className="btn btn-outline-danger"
+            >
+              Delete
+            </button>{" "}
           </li>
         ))}
 
@@ -73,4 +83,4 @@ const UpdateData = () => {
   );
 };
 
-export default UpdateData;
+export default CreateDataService;

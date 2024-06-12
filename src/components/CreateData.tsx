@@ -1,6 +1,7 @@
 
+import axios from "axios";
 import { useEffect, useState } from "react";
-import apiClient from "../services/apiClient";
+// import apiClient from "../services/apiClient";
 
 interface User {
   id: number;
@@ -18,7 +19,8 @@ const CreateData = () => {
   ///Create a function to helps us fetch our data with axios
   const FetchData = () => {
     setIsLoading(true);
-    apiClient
+    // apiClient
+    axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         setUsers(response.data);
@@ -45,7 +47,7 @@ const CreateData = () => {
     //set our users and spread all users and add our new user
     setUsers([newUser,...users])
     //we need to send this updated data to our back-end
-    apiClient.post('https://jsonplaceholder.typicode.com/users',newUser)
+    axios.post('https://jsonplaceholder.typicode.com/users',newUser)
     .then(response => setUsers([response.data,...users]))
     .catch(error => {
       setError(error.message);

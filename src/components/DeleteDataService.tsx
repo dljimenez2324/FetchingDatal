@@ -1,15 +1,10 @@
 
 import { useEffect, useState } from "react";
-// import apiClient, {CanceledError} from "../services/apiClient";
-import axios from "axios";
+import apiClient, {CanceledError} from "../services/apiClient";
+import userService, { User } from "../services/userService";
 
-interface User {
-  id: number;
-  name: string;
-  username: string;
-}
 
-const DeleteData = () => {
+const DeleteDataService = () => {
   //we need a useState to help us hold the state of our users
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState('');
@@ -19,9 +14,8 @@ const DeleteData = () => {
   ///Create a function to helps us fetch our data with axios
   const FetchData = () => {
     setIsLoading(true);
-    // apiClient
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    const {request} = userService.getAll<User>();
+    request
       .then((response) => {
         setUsers(response.data)
         setIsLoading(false);
@@ -41,8 +35,14 @@ const DeleteData = () => {
 
 
   ///Lets create a helper function to help us delete our users from our front end UI
-  const userDelete =(user:User) => {
+  const userDelete = (user:User) => {
+    const originalUsers = [...users]
     setUsers(users.filter(u => u.id != user.id))
+    userService.delete(user.id)
+      .catch(error => {
+        setError(error.message)
+        setUsers(originalUsers)
+      })
   }
 
   return (
@@ -50,7 +50,7 @@ const DeleteData = () => {
       <h1 className="text-center">CRUD delete with Axios</h1>
       <ul className="list-group">
         {users.map((user) => (
-          <li className="list-group-item d-flex justify-content-between" key={user.id}>{user.username}<button onClick={() => userDelete(user)} className="btn btn-outline-danger">Delete</button> </li>
+          <li className="list-group-item d-flex justify-content-between" key={user.id}>{user.name}<button onClick={() => userDelete(user)} className="btn btn-outline-danger">Delete</button> </li>
         ))}
      
         { error && <p className="text-danger">{error}</p>}
@@ -60,4 +60,4 @@ const DeleteData = () => {
   );
 };
 
-export default DeleteData;
+export default DeleteDataService;
