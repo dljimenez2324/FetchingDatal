@@ -18,7 +18,7 @@ const LoadingIndicator = () => {
   const FetchData = () => {
     setIsLoading(true);
     axios
-      .get("https://jsonplaceholder.typicode.com/xusers")
+      .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         setUsers(response.data)
         setIsLoading(false);
