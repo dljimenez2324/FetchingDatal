@@ -18,21 +18,21 @@ console.log('This count is');
 
 //optional clean up function. Code here runs before the component is unmounted or before the effect runs again.
 // return () => {
-//     console.log('clean up funcion');
+//     console.log('clean up function');
     
 // }
 
 }, [/*dependency array */]);
 
 ///what ever in in our [] is our dependency. It will make our useEffect fire every time this changes.
-//If you privide an empty array[], the effect will only run once after the inital render
+//If you provide an empty array[], the effect will only run once after the initial render
 
 ///You can have multiple useEffects
 
 
 
 useEffect(() => {
-    console.log('This will re-run everytime our dependency has chaged The count is ', count);
+    console.log('This will re-run every time our dependency has changed The count is ', count);
     
   
 
@@ -40,11 +40,11 @@ useEffect(() => {
 
 
 useEffect(() => {
-  console.log('Subcribe inside our useEffect');
+  console.log('Subscribe inside our useEffect');
   
 
   return () => {
-    console.log('unsubcribe from our clean up function',count);
+    console.log('unsubscribe from our clean up function',count);
     
   }
 }, [count])
@@ -57,7 +57,7 @@ useEffect(() => {
     setCount((prevCount) => prevCount + 1);
   };
 
-  //hanlde decrement
+  //handle decrement
   const handleDecrement = () => {
     setCount((prevCount) => prevCount - 1);
   };

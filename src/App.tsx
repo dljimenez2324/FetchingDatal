@@ -1,5 +1,5 @@
-import { useState } from "react"
-import ProductList from "./components/ProductList"
+// import { useState } from "react"
+// import ProductList from "./components/ProductList"
 import UseEffectExample from "./components/UseEffectExample"
 import UseEffectExample2 from "./components/UseEffectExample2"
 import FetchingAxios from "./components/FetchingAxios"
@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <>
-        <h1 className="text-center">React Fetching Data Examples, Using Axios, services, Http,CRUD</h1>
+        <h1 className="text-center">React Fetching Data Examples, Using Axios, services, Http, CRUD</h1>
         <DeleteDataService/>
         <UpdateData/>
         <CreateData/>

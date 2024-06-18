@@ -5,10 +5,10 @@ interface Entity {
 }
 //Create a class and a method 
 class HttpService {
-//type string endpoing
+//type string endpoint
     endpoint: string;
-    ///need a contructor any time you call the class it will create instance of that class.
-    //What ever is in our contrutor it will create an instance.
+    ///need a constructor any time you call the class it will create instance of that class.
+    //What ever is in our constructor it will create an instance.
     constructor(endpoint: string) {
         this.endpoint = endpoint
     }
