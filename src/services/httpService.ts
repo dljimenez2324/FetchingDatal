@@ -9,12 +9,13 @@ class HttpService {
     endpoint: string;
     ///need a constructor any time you call the class it will create instance of that class.
     //What ever is in our constructor it will create an instance.
+    //
     constructor(endpoint: string) {
         this.endpoint = endpoint
     }
 
 
-//lets create a getAllUsers method
+//lets create a getAllUsers method  This is a READ / GET  function
 getAll<T>() {
     const request = apiClient.get<T[]>(this.endpoint)
     return {request}

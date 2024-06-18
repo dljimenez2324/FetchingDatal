@@ -7,7 +7,7 @@ const CreateDataService = () => {
   const addUser = () => {
     //original users []
     const originalUsers = [...users];
-    //wer are going to have a new object with id and name
+    //were are going to have a new object with id and name
     const newUser = { id: 0, name: "Aaron" };
     //set our users and spread all users and add our new user
     setUsers([newUser, ...users]);

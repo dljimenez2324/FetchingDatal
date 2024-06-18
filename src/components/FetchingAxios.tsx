@@ -29,6 +29,7 @@ const FetchingAxios = () => {
     FetchData();
   }, []);
 
+  
   return (
     <>
       <h1 className="text-center">Fetching Data with apiClient</h1>
